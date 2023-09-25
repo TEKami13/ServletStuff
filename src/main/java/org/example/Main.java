@@ -5,5 +5,10 @@ public class Main {
         CatServer catServer = new CatServer();
 
         catServer.start();
+
+        AnimeRepo.addAnime("Bleach");
+        AnimeRepo.addAnime("One Piece");
+        AnimeRepo.addAnime("Naruto");
+        AnimeRepo.addAnime("Overlord");
     }
 }

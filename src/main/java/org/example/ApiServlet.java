@@ -17,9 +17,10 @@ public class ApiServlet extends HttpServlet {
         //var result = first + second;
         //resp.getWriter().write("Result is " + result);
         //req.getParameterMap().forEach((key, value) -> System.out.println(key + " " + Arrays.toString(value)));
+            resp.getWriter().write("<html><a href='test?first=httpbin&second=80'><button>moby dick</button></a></html> ");
         CatRepository.getCats().forEach(cat -> {
             try {
-                resp.getWriter().write(cat+" ");
+                resp.getWriter().write(cat + " ");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

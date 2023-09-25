@@ -13,7 +13,11 @@ public class CatServer {
         var resource = Resource.newClassPathResource("/WebApp");
         var handler = new WebAppContext(resource, "/");
 
-        handler.addServlet(new ServletHolder(new ApiServlet()), "/api");
+        handler.addServlet(new ServletHolder(new AnimeServlet()), "/api/anime");
+        handler.addServlet(new ServletHolder(new ApiServlet()), "/api/cat");
+        handler.addServlet(new ServletHolder(new TestServlet()), "/api/test");
+        handler.addServlet(new ServletHolder(new AstersiskServlet()), "/api/*");
+
         server.setHandler(handler);
 
         server.start();
