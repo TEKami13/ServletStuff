@@ -7,8 +7,8 @@ public class CatRepository {
 
     private static ArrayList<String> catList = new ArrayList<>();
 
-    public static void addCat(String catName) {
-        catList.add(catName);
+    public static void addCat(Cat cat) {
+        catList.add(cat.name());
     }
 
     public static List<String> getCats() {

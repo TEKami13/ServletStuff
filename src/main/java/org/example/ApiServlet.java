@@ -1,5 +1,6 @@
 package org.example;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,10 +24,12 @@ public class ApiServlet extends HttpServlet {
         //var result = first + second;
         //resp.getWriter().write("Result is " + result);
         //req.getParameterMap().forEach((key, value) -> System.out.println(key + " " + Arrays.toString(value)));
+        resp.getWriter().write("<html><a href='test?first=httpbin&second=80'><button>moby dick</button></a></html> ");
+
+
         logger.info("Hey, I got a request");
 
 
-            resp.getWriter().write("<html><a href='test?first=httpbin&second=80'><button>moby dick</button></a></html> ");
         CatRepository.getCats().forEach(cat -> {
             try {
                 resp.getWriter().write(cat + " ");
@@ -36,9 +39,13 @@ public class ApiServlet extends HttpServlet {
         });
     }
 
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        var body = req.getReader().lines().collect(Collectors.joining());
-        CatRepository.addCat(body);
+        var payload = req.getReader().lines().collect(Collectors.joining());
+        var cat = new ObjectMapper().readValue(payload, Cat.class);
+        logger.info(cat.toString());
+        CatRepository.addCat(cat);
     }
 }
+
