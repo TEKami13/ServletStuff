@@ -11,14 +11,14 @@ public class CatServer {
 
     public void start() throws Exception {
         var resource = Resource.newClassPathResource("/WebApp");
-        var handler = new WebAppContext(resource, "/");
+        var webAppContext = new WebAppContext(resource, "/");
 
-        handler.addServlet(new ServletHolder(new AnimeServlet()), "/api/anime");
-        handler.addServlet(new ServletHolder(new ApiServlet()), "/api/cat");
-        handler.addServlet(new ServletHolder(new TestServlet()), "/api/test");
-        handler.addServlet(new ServletHolder(new AstersiskServlet()), "/api/*");
+        webAppContext.addServlet(new ServletHolder(new AnimeServlet()), "/api/anime");
+        webAppContext.addServlet(new ServletHolder(new ApiServlet()), "/api/cat");
+        webAppContext.addServlet(new ServletHolder(new TestServlet()), "/api/test");
+        webAppContext.addServlet(new ServletHolder(new AstersiskServlet()), "/api/*");
 
-        server.setHandler(handler);
+        server.setHandler(webAppContext);
 
         server.start();
 
