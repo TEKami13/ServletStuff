@@ -1,5 +1,6 @@
 package org.example;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -15,6 +16,8 @@ import java.util.Arrays;
 public class AstersikFilter extends HttpFilter {
 
     private static final Logger logger = LoggerFactory.getLogger(CatFilter.class);
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
 
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
@@ -30,8 +33,8 @@ public class AstersikFilter extends HttpFilter {
                 counter++;
                 res.addCookie(new Cookie("DoCounter", String.valueOf(counter)));
             }
-                chain.doFilter(req, res);
-            } else {
+            chain.doFilter(req, res);
+        } else {
             res.addCookie(new Cookie("DoCounter", "1"));
             res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
