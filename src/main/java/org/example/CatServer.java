@@ -1,9 +1,14 @@
 package org.example;
 
+import jakarta.servlet.DispatcherType;
+import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
+
+import java.util.EnumSet;
 
 public class CatServer {
 
@@ -14,8 +19,12 @@ public class CatServer {
         var webAppContext = new WebAppContext(resource, "/");
 
         webAppContext.addServlet(new ServletHolder(new AnimeServlet()), "/api/anime");
+
         webAppContext.addServlet(new ServletHolder(new ApiServlet()), "/api/cat");
+        webAppContext.addFilter(new FilterHolder(new CatFilter()), "/api/cat", EnumSet.of(DispatcherType.REQUEST));
+
         webAppContext.addServlet(new ServletHolder(new TestServlet()), "/api/test");
+
         webAppContext.addServlet(new ServletHolder(new AstersiskServlet()), "/api/*");
 
         server.setHandler(webAppContext);
