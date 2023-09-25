@@ -5,15 +5,12 @@ import java.util.List;
 
 public class CatRepository {
 
-    private static ArrayList<String> catList = new ArrayList<>();
+    private static ArrayList<Cat> catList = new ArrayList<>();
 
     public static void addCat(Cat cat) {
-        catList.add(cat.name());
+        catList.add(cat);
     }
 
-    public static List<String> getCats() {
-
-        return catList;
-    }
+    public static List<Cat> getCats() {return catList;}
 
 }
