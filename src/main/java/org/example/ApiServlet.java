@@ -4,12 +4,18 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class ApiServlet extends HttpServlet {
+
+    private final static Logger logger = LoggerFactory.getLogger(ApiServlet.class);
+
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //int first = Integer.parseInt(req.getParameter("first"));
@@ -17,6 +23,9 @@ public class ApiServlet extends HttpServlet {
         //var result = first + second;
         //resp.getWriter().write("Result is " + result);
         //req.getParameterMap().forEach((key, value) -> System.out.println(key + " " + Arrays.toString(value)));
+        logger.info("Hey, I got a request");
+
+
             resp.getWriter().write("<html><a href='test?first=httpbin&second=80'><button>moby dick</button></a></html> ");
         CatRepository.getCats().forEach(cat -> {
             try {
