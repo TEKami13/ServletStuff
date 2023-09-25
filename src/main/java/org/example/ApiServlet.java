@@ -32,7 +32,7 @@ public class ApiServlet extends HttpServlet {
 
         CatRepository.getCats().forEach(cat -> {
             try {
-                resp.getWriter().write(cat + " ");
+                resp.getWriter().write(cat.name() + " ");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -46,6 +46,14 @@ public class ApiServlet extends HttpServlet {
         var cat = new ObjectMapper().readValue(payload, Cat.class);
         logger.info(cat.toString());
         CatRepository.addCat(cat);
+
+        CatRepository.getCats().forEach(catN -> {
+            try {
+                resp.getWriter().write(catN.name() + " ");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }
 
