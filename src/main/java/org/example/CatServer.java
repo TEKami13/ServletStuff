@@ -23,6 +23,8 @@ public class CatServer {
         webAppContext.addServlet(new ServletHolder(new ApiServlet()), "/api/cat");
         webAppContext.addFilter(new FilterHolder(new CatFilter()), "/api/cat", EnumSet.of(DispatcherType.REQUEST));
 
+        webAppContext.addServlet(new ServletHolder(new LoginServlet()), "/login");
+
         webAppContext.addServlet(new ServletHolder(new TestServlet()), "/api/test");
 
         webAppContext.addServlet(new ServletHolder(new AstersiskServlet()), "/api/*");

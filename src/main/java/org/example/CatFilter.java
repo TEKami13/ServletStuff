@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class CatFilter extends HttpFilter {
 
@@ -18,8 +19,13 @@ public class CatFilter extends HttpFilter {
 
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
-        logger.info(req.getHeader("User-Agent"));
+        //logger.info(req.getHeader("User-Agent"));
 
-        chain.doFilter(req, res);
+        var cookie = Arrays.stream(req.getCookies()).filter(c -> c.getName().equals("authorized")).findFirst().orElse(null);
+        if (cookie != null && cookie.getValue().equals("true")) {
+            chain.doFilter(req, res);
+        } else {
+        res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
     }
 }
