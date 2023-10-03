@@ -29,8 +29,8 @@ public class CatServer {
 
         webAppContext.addServlet(new ServletHolder(new TestServlet()), "/api/test");
 
-        webAppContext.addServlet(new ServletHolder(new AstersiskServlet()), "/api/*");
-        webAppContext.addFilter(new FilterHolder(new AstersikFilter()), "/api/*", EnumSet.of(DispatcherType.REQUEST));
+        webAppContext.addServlet(new ServletHolder(new AstersiskServlet()), "/*");
+        webAppContext.addFilter(new FilterHolder(new AstersikFilter()), "/*", EnumSet.of(DispatcherType.REQUEST));
 
         server.setHandler(webAppContext);
 
